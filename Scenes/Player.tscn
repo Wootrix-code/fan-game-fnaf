@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dtgq07p247ly3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qbkls"]
+height = 2.5
+
+[node name="Player" type="CharacterBody3D" unique_id=1786701567]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=923484708]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+shape = SubResource("CapsuleShape3D_qbkls")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1494440637]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Spatial" type="Node3D" parent="Camera3D" unique_id=1553879569]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4385862)
+
+[node name="Control" type="Control" parent="." unique_id=1850552953]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control" unique_id=498673503]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1

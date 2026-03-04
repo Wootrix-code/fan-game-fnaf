@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://c4w65v8pn6hrp"]
 
 [ext_resource type="PackedScene" uid="uid://e35muyowlrlt" path="res://Scenes/Map.tscn" id="1_bc8hh"]
+[ext_resource type="Environment" uid="uid://deptwvej74au5" path="res://env.tres" id="2_0ias4"]
 
 [node name="Jeu" type="Node3D" unique_id=1130043089]
 
 [node name="Map" parent="." unique_id=1716010045 instance=ExtResource("1_bc8hh")]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1429765766]
-transform = Transform3D(-0.99488777, 0, 0.1009868, 0, 1, 0, -0.1009868, 0, -0.99488777, 0, 5.835964, -34.78918)
+transform = Transform3D(-0.99891704, 0.04478329, -0.012618482, 0.04203538, 0.9849167, 0.16784568, 0.019944862, 0.16713354, -0.9857326, -0.6386032, 5.835964, -34.78918)
+environment = ExtResource("2_0ias4")
