@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://e35muyowlrlt"]
+
+[ext_resource type="PackedScene" uid="uid://bea8jki50awv8" path="res://Asset/Map.glb" id="1_gfjgm"]
+
+[node name="Map" type="Node3D" unique_id=1716010045]
+
+[node name="Map" parent="." unique_id=391864138 instance=ExtResource("1_gfjgm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.843994, 1.1920929e-07, 0.8993864)

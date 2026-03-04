@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cge60n1es8b5r"]
+
+[ext_resource type="Texture2D" uid="uid://b282vxaii1jxd" path="res://Asset/Map_grass texture.jpg" id="1_ohchc"]
+
+[resource]
+resource_name = "Grass"
+cull_mode = 2
+albedo_texture = ExtResource("1_ohchc")
+metallic_specular = 0.0

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bbm43q5qcq156"]
+
+[ext_resource type="Texture2D" uid="uid://b01qorcy8m3fk" path="res://Asset/Map_stone texture.jpg" id="1_18j2a"]
+
+[resource]
+resource_name = "Stone"
+cull_mode = 2
+albedo_texture = ExtResource("1_18j2a")
+metallic_specular = 0.0
