@@ -3,34 +3,83 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
-    // --- Variable
-    // Variable de la souris / regard
-    float lookAngle = 90.0f;
-    float mouseSensivity = 2.0f;
-    Vector3 mouseDelta = new Vector3();
-    // FIN souris
+	[Export]
+	float mouseSensitivity = 0.2f;
+	float cameraRotationX = 0f;
+	// Variable clavier / déplacement
+	float moveSpeed = 4.0f;
+	float gravity = 10.0f;
+	float jumpForce = 8.0f;
 
-    // Références
-    Camera camera;
+	Vector3 velocity = new Vector3();
 
-    // --- Fonction de GODOT
-    // Ready
-    public override void _Ready()
-    {
-        base._Ready();
-        camera = GetNode("Camera3D") as Camera;
-    }
-    // Gestion des inputs et du regard (camera)
-    public override void _Input(InputEvent ev)
-    {
-        if(ev is InputEventMouseMotion eventMouse)
-        {
-            mouseDelta = eventMouse.Relative;
-        }
-    }
+	Camera3D camera;
 
-    public override void _Process(float delta)
-    {
-        camera.RotationDegrees -= new Vector3(Mathf.Rad2Deg)
-    }
+	public override void _Ready()
+	{
+		camera = GetNode<Camera3D>("Camera3D");
+		Input.MouseMode = Input.MouseModeEnum.Captured;
+	}
+
+	public override void _Input(InputEvent ev)
+	{
+		if (ev is InputEventMouseMotion motion)
+		{
+			// Rotation du joueur gauche / droite
+			RotateY(Mathf.DegToRad(-motion.Relative.X * mouseSensitivity));
+
+			// Rotation caméra haut / bas
+			cameraRotationX -= motion.Relative.Y * mouseSensitivity;
+			cameraRotationX = Mathf.Clamp(cameraRotationX, -80f, 80f);
+
+			camera.RotationDegrees = new Vector3(cameraRotationX, 0, 0);
+		}
+	}
+	public override void _PhysicsProcess(double delta)
+	{
+		velocity.X = 0;
+		velocity.Z = 0;
+
+		var direction = new Vector2();
+
+		// Test des touches du clavier ZQSD
+		if (Input.IsActionPressed("forward"))
+		{
+			direction.Y -= 1;
+		}
+		if (Input.IsActionPressed("back"))
+		{
+			direction.Y += 1;
+		}
+		if(Input.IsActionPressed("left"))
+		{
+			direction.X -= 1;
+		}
+		if(Input.IsActionPressed("right"))
+		{
+			direction.X += 1;
+		}
+		direction = direction.Normalized();
+
+		var forward = GlobalTransform.Basis.Z;
+		var right = GlobalTransform.Basis.X;
+
+		// on calculme la vélocité
+		// avant / arrière
+		velocity.Z = (forward * direction.Y + right * direction.X).Z * moveSpeed;
+		// gauche / droite
+		velocity.X = (forward * direction.Y + right * direction.X).X * moveSpeed;
+		// haut bas / saut
+		velocity.Y -= gravity * (float)delta;
+
+		// on applique le mouvement
+		Velocity = velocity;
+		MoveAndSlide();
+		// Gestion du saut
+		// SI touche espace + on est au sol... On peut sauter
+		if(Input.IsActionPressed("jump") && IsOnFloor())
+		{
+			velocity.Y = jumpForce;
+		}
+	}
 }
