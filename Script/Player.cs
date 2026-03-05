@@ -7,8 +7,8 @@ public partial class Player : CharacterBody3D
 	float mouseSensitivity = 0.2f;
 	float cameraRotationX = 0f;
 	// Variable clavier / déplacement
-	float moveSpeed = 6.0f;
-	float sprintSpeed = 10.0f;
+	float moveSpeed = 8.0f;
+	float sprintSpeed = 12.0f;
 	float currentSpeed;
 	float gravity = 20.0f;
 	float jumpForce = 8.0f;
