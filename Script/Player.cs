@@ -8,10 +8,14 @@ public partial class Player : CharacterBody3D
 	float cameraRotationX = 0f;
 	// Variable clavier / déplacement
 	float moveSpeed = 4.0f;
+	float sprintSpeed = 8.0f;
+	float currentSpeed;
 	float gravity = 10.0f;
 	float jumpForce = 8.0f;
 
 	Vector3 velocity = new Vector3();
+
+	SpotLight3D spotLight;
 
 	Camera3D camera;
 
@@ -19,6 +23,7 @@ public partial class Player : CharacterBody3D
 	{
 		camera = GetNode<Camera3D>("Camera3D");
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+		spotLight = GetNode<SpotLight3D>("Camera3D/SpotLight3D");
 	}
 
 	public override void _Input(InputEvent ev)
@@ -59,16 +64,28 @@ public partial class Player : CharacterBody3D
 		{
 			direction.X += 1;
 		}
-		direction = direction.Normalized();
+		if(Input.IsActionPressed("sprint"))
+		{
+			currentSpeed = sprintSpeed;
+		} else
+		{
+			currentSpeed = moveSpeed;
+		}
+		if(Input.IsActionJustPressed("EnableLight"))
+		{
+			spotLight.Visible = !spotLight.Visible;
+		}
+
+			direction = direction.Normalized();
 
 		var forward = GlobalTransform.Basis.Z;
 		var right = GlobalTransform.Basis.X;
 
 		// on calculme la vélocité
 		// avant / arrière
-		velocity.Z = (forward * direction.Y + right * direction.X).Z * moveSpeed;
+		velocity.Z = (forward * direction.Y + right * direction.X).Z * currentSpeed;
 		// gauche / droite
-		velocity.X = (forward * direction.Y + right * direction.X).X * moveSpeed;
+		velocity.X = (forward * direction.Y + right * direction.X).X * currentSpeed;
 		// haut bas / saut
 		velocity.Y -= gravity * (float)delta;
 
