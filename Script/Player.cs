@@ -7,16 +7,16 @@ public partial class Player : CharacterBody3D
 	float mouseSensitivity = 0.2f;
 	float cameraRotationX = 0f;
 	// Variable clavier / déplacement
-	float moveSpeed = 4.0f;
-	float sprintSpeed = 8.0f;
+	float moveSpeed = 6.0f;
+	float sprintSpeed = 10.0f;
 	float currentSpeed;
-	float gravity = 10.0f;
+	float gravity = 20.0f;
 	float jumpForce = 8.0f;
 
 	Vector3 velocity = new Vector3();
 
 	SpotLight3D spotLight;
-
+	
 	Camera3D camera;
 
 	public override void _Ready()
