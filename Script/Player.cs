@@ -22,14 +22,33 @@ public partial class Player : CharacterBody3D
 	
 	Camera3D camera;
 
-	public override void _Ready()
+    private SaveSystem _saveSystem;
+    private Inventory _inventory;
+
+    public override void _Ready()
 	{
 		camera = GetNode<Camera3D>("Camera3D");
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		spotLight = GetNode<SpotLight3D>("Camera3D/SpotLight3D");
 		inventory = GetNode<Inventory>("/root/Inventory");
 		rayCast = GetNode<RayCast3D>("Camera3D/RayCast3D");
-	}
+        _saveSystem = GetNode<SaveSystem>("/root/SaveSystem");
+        _inventory = GetNode<Inventory>("/root/Inventory"); // Inventory en AutoLoad
+
+        // Charger la position et l'inventaire au démarrage
+        var savedPos = _saveSystem.LoadPosition();
+        if (savedPos.HasValue)
+        {
+            GlobalPosition = savedPos.Value;
+        }
+
+        var savedItems = _saveSystem.LoadInventory();
+        if (savedItems.Count > 0)
+        {
+            _inventory.Items = savedItems;
+            GD.Print("[Save] Inventaire restauré.");
+        }
+    }
 
 	public override void _Input(InputEvent ev)
 	{
@@ -44,7 +63,20 @@ public partial class Player : CharacterBody3D
 
 			camera.RotationDegrees = new Vector3(cameraRotationX, 0, 0);
 		}
-	}
+        // F5 : Sauvegarder position + inventaire
+        if (Input.IsActionJustPressed("save_game"))
+        {
+            _saveSystem.Save(GlobalPosition, _inventory.Items);
+        }
+
+        // F6 : Reset la sauvegarde
+        if (Input.IsActionJustPressed("reset_save"))
+        {
+            _saveSystem.ResetSave();
+            _inventory.Items.Clear();
+            GD.Print("[Save] Inventaire vidé.");
+        }
+    }
 	public override void _PhysicsProcess(double delta)
 	{
 		velocity.X = 0;
