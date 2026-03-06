@@ -15,6 +15,9 @@ public partial class Player : CharacterBody3D
 
 	Vector3 velocity = new Vector3();
 
+	Inventory inventory;
+	RayCast3D rayCast;
+
 	SpotLight3D spotLight;
 	
 	Camera3D camera;
@@ -24,6 +27,8 @@ public partial class Player : CharacterBody3D
 		camera = GetNode<Camera3D>("Camera3D");
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		spotLight = GetNode<SpotLight3D>("Camera3D/SpotLight3D");
+		inventory = GetNode<Inventory>("/root/Inventory");
+		rayCast = GetNode<RayCast3D>("Camera3D/RayCast3D");
 	}
 
 	public override void _Input(InputEvent ev)
@@ -74,6 +79,18 @@ public partial class Player : CharacterBody3D
 		if(Input.IsActionJustPressed("EnableLight"))
 		{
 			spotLight.Visible = !spotLight.Visible;
+		}
+		if(Input.IsActionJustPressed("interact"))
+		{
+			if(rayCast.IsColliding())
+			{
+				var collider = rayCast.GetCollider();
+				if (collider is Pickable pickable)
+				{
+					inventory.AddItem(pickable.ItemName);
+					pickable.QueueFree();
+				}
+			}
 		}
 
 			direction = direction.Normalized();

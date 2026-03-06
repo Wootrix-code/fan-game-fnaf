@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dqojo2dlps1s3"]
+
+[ext_resource type="Script" uid="uid://by6khtf2nuygl" path="res://Script/Pickable.cs" id="1_ufb5h"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_h806f"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xf5hi"]
+
+[node name="object" type="Area3D" unique_id=874978991]
+script = ExtResource("1_ufb5h")
+ItemName = "Test"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1291274013]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+mesh = SubResource("BoxMesh_h806f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=721521526]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+shape = SubResource("BoxShape3D_xf5hi")

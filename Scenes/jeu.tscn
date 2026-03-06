@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://c4w65v8pn6hrp"]
 
 [ext_resource type="PackedScene" uid="uid://e35muyowlrlt" path="res://Scenes/Map.tscn" id="1_bc8hh"]
+[ext_resource type="PackedScene" uid="uid://dqojo2dlps1s3" path="res://Scenes/object.tscn" id="3_0thx2"]
 [ext_resource type="PackedScene" uid="uid://dtgq07p247ly3" path="res://Scenes/Player.tscn" id="3_3fugv"]
+[ext_resource type="Script" uid="uid://c58c23neb71gq" path="res://Script/InventoryUI.cs" id="4_0thx2"]
 
 [node name="Jeu" type="Node3D" unique_id=1130043089]
 
@@ -9,5 +11,12 @@
 
 [node name="Player" parent="." unique_id=1786701567 instance=ExtResource("3_3fugv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.73357, 0, 0)
+
+[node name="object" parent="." unique_id=874978991 instance=ExtResource("3_0thx2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22443199, 9.094173)
+
+[node name="InventoryUI" type="CanvasLayer" parent="." unique_id=1502004600]
+process_mode = 3
+script = ExtResource("4_0thx2")
 
 [editable path="Player"]

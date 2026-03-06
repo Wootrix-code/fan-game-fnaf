@@ -25,6 +25,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4385862)
 light_energy = 10.0
 spot_range = 40.0
 
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1955125097]
+target_position = Vector3(0, 0, -4)
+collide_with_areas = true
+
 [node name="Control" type="Control" parent="." unique_id=1850552953]
 layout_mode = 3
 anchors_preset = 15
